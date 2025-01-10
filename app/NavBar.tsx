@@ -1,7 +1,12 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { GiCapybara } from "react-icons/gi";
+import classnames from "classnames";
 
 const NavBar = () => {
+  const currentPath = usePathname();
   const links = [
     { label: "Dashboard", href: "/" },
     { label: "Questions", href: "/questions" },
@@ -16,7 +21,11 @@ const NavBar = () => {
         {links.map((link) => (
           <Link
             key={link.href}
-            className="text-slate-300 hover:text-white transition-colors"
+            className={classnames({
+              "text-white": link.href === currentPath,
+              "text-slate-300": link.href !== currentPath,
+              "hover:text-white transition-colors": true,
+            })}
             href={link.href}
           >
             {link.label}
