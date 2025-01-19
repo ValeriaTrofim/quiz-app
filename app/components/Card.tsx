@@ -16,7 +16,7 @@ const Card = () => {
           key={id}
           className="max-w-sm bg-transparent hover:bg-slate-800 rounded-lg  "
         >
-          <Link href="#">
+          <Link href="/quiz">
             <Image
               className="rounded-t-lg"
               src={"/assets/" + item.image + ".png"}
@@ -26,8 +26,8 @@ const Card = () => {
             />
           </Link>
           <div className="p-5">
-            <Link href="#">
-              <h5 className="mb-2 text-2xl text-center font-bold tracking-tight text-indigo-100">
+            <Link href="/quiz">
+              <h5 className="mb-2 text-2xl text-center font-bold tracking-tight text-indigo-100 ">
                 {item.title + " " + "Quiz"}
               </h5>
             </Link>
