@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { GiCapybara } from "react-icons/gi";
+import { GoCodescan } from "react-icons/go";
 import classnames from "classnames";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 
@@ -10,13 +10,13 @@ const NavBar = () => {
   const currentPath = usePathname();
   const links = [
     { label: "Dashboard", href: "/" },
-    { label: "Questions", href: "/questions" },
+    { label: "Categories", href: "/categories" },
   ];
 
   return (
     <nav className="flex space-x-6 border-b border-slate-400 mb-5 px-5 h-14 items-center">
       <Link href="/">
-        <GiCapybara />
+        <GoCodescan />
       </Link>
       <ul className="flex space-x-6">
         {links.map((link) => (
