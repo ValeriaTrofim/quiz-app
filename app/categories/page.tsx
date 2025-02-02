@@ -1,7 +1,7 @@
 import React from "react";
 import Card from "../components/Card";
 
-const Questions = () => {
+const Categories = () => {
   return (
     <div className="container mx-auto  flex min-h-screen  flex-col justify-between p-24">
       <Card />
@@ -9,4 +9,4 @@ const Questions = () => {
   );
 };
 
-export default Questions;
+export default Categories;

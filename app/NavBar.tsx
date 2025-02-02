@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { GoCodescan } from "react-icons/go";
+import { FaCode } from "react-icons/fa";
 import classnames from "classnames";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 
@@ -16,7 +16,7 @@ const NavBar = () => {
   return (
     <nav className="flex space-x-6 border-b border-slate-400 mb-5 px-5 h-14 items-center">
       <Link href="/">
-        <GoCodescan />
+        <FaCode />
       </Link>
       <ul className="flex space-x-6">
         {links.map((link) => (

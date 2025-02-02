@@ -29,7 +29,7 @@ const Card = () => {
           key={category.id}
           className="max-w-sm bg-transparent group hover:bg-slate-800 rounded-lg  hover:-translate-y-1 transition-transform duration-300 ease-in-out"
         >
-          <Link href="/quiz">
+          <Link href={`/categories/${category.id}`}>
             <Image
               className="rounded-t-lg"
               src={
