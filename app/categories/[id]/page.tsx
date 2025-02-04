@@ -1,16 +1,49 @@
 import prisma from "@/prisma/client";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
-const CategoryDetailPage = async ({ params }: { params: { id: string } }) => {
-  const category = await prisma.category.findUnique({
-    where: { id: params.id },
+const CategoryDetailPage = async ({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) => {
+  const id = (await params).id;
+
+  const quizzes = await prisma.quiz.findMany({
+    where: {
+      categoryId: id,
+    },
+    include: {
+      questions: {
+        select: {
+          id: true,
+          text: true,
+          difficulty: true,
+          options: {
+            select: {
+              id: true,
+              text: true,
+              isCorrect: true,
+            },
+          },
+        },
+      },
+    },
+    orderBy: { id: "asc" },
   });
 
-  if (!category) notFound;
+  if (!quizzes) notFound;
 
   return (
-    <div className="container mx-auto  flex min-h-screen  flex-col justify-between p-24">
-      CategoryDetailPage
+    <div className="container mx-auto  flex min-h-screen  ">
+      {quizzes?.map((quiz) => (
+        <div key={quiz.id}>
+          <Link href="/quiz">
+            <h5>{quiz.title}</h5>
+            <p>{quiz.description}</p>
+          </Link>
+        </div>
+      ))}
     </div>
   );
 };

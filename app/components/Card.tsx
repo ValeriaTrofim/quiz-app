@@ -44,7 +44,7 @@ const Card = () => {
           </Link>
 
           <div className="p-5">
-            <Link href="/quiz">
+            <Link href={`/categories/${category.id}`}>
               <h5 className="mb-2 text-2xl text-center font-bold tracking-tight text-indigo-100 ">
                 {category.name + " " + "Quiz"}
               </h5>
