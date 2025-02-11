@@ -35,15 +35,24 @@ const CategoryDetailPage = async ({
   if (!quizzes) notFound;
 
   return (
-    <div className="container mx-auto  flex min-h-screen  ">
-      {quizzes?.map((quiz) => (
-        <div key={quiz.id}>
-          <Link href="/quiz">
-            <h5>{quiz.title}</h5>
-            <p>{quiz.description}</p>
-          </Link>
-        </div>
-      ))}
+    <div className="container mx-auto flex min-h-screen flex-col items-center justify-between p-32 lg:p-40 ">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 ">
+        {quizzes?.map((quiz) => (
+          <div
+            key={quiz.id}
+            className="max-w-sm bg-slate-800  rounded-lg  shadow-lg shadow-cyan-500/50 hover:-translate-y-1 transition-transform duration-300 ease-in-out p-5"
+          >
+            <Link href="/quiz">
+              <h5 className="mb-2 text-2xl text-center font-bold tracking-tight text-indigo-100  ">
+                {quiz.title}
+              </h5>
+              <p className="mb-3 font-normal text-indigo-200 hidden lg:block">
+                {quiz.description}
+              </p>
+            </Link>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
