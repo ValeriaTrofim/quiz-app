@@ -23,11 +23,11 @@ const Card = () => {
   if (error) return null;
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[12.5rem]">
       {categories?.map((category) => (
         <div
           key={category.id}
-          className="max-w-sm bg-transparent group hover:bg-slate-800 rounded-lg  hover:-translate-y-1 transition-transform duration-300 ease-in-out"
+          className="max-w-[13rem] bg-transparent group hover:bg-slate-800 rounded-full shadow-lg shadow-cyan-500/50 hover:-translate-y-1 transition-transform duration-300 ease-in-out"
         >
           <Link href={`/categories/${category.id}`}>
             <Image
@@ -48,7 +48,7 @@ const Card = () => {
               <h5 className="mb-2 text-2xl text-center font-bold tracking-tight text-indigo-100 ">
                 {category.name + " " + "Quiz"}
               </h5>
-              <p className="mb-3 font-normal text-center text-indigo-200 opacity-0 group-hover:opacity-100">
+              <p className="mb-3 font-normal text-center text-indigo-200 lg:opacity-0 group-hover:opacity-100">
                 {category.description}
               </p>
             </Link>

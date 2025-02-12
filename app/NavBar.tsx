@@ -14,9 +14,9 @@ const NavBar = () => {
   ];
 
   return (
-    <nav className="flex space-x-6 border-b border-slate-400 mb-5 px-5 h-14 items-center">
+    <nav className="flex space-x-6 border-b border-cyan-500/50 shadow-md shadow-cyan-500/50 mb-5 px-5 h-14 items-center">
       <Link href="/">
-        <FaCode />
+        <FaCode className="shadow-lg shadow-cyan-500/50" />
       </Link>
       <ul className="flex space-x-6">
         {links.map((link) => (
