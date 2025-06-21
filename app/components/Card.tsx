@@ -27,7 +27,7 @@ const Card = () => {
       {categories?.map((category) => (
         <div
           key={category.id}
-          className="max-w-[13rem] bg-transparent group hover:bg-slate-800 rounded-full shadow-lg shadow-cyan-500/50 hover:-translate-y-1 transition-transform duration-300 ease-in-out"
+          className="max-w-[15rem] bg-transparent group hover:bg-slate-800 shadow-lg shadow-cyan-500/50 hover:-translate-y-1 transition-transform duration-300 ease-in-out"
         >
           <Link href={`/categories/${category.id}`}>
             <Image
