@@ -46,14 +46,6 @@ const Quiz = async ({ params }: { params: Promise<{ id: string }> }) => {
               </label>
             </div>
           ))}
-          <div className="flex justify-between w-full mt-4 text-cyan-500">
-            <button className="w-[49%] py-3 bg-cyan-950 rounded-lg">
-              Previous
-            </button>
-            <button className="w-[49%] py-3 bg-cyan-950 rounded-lg">
-              Next
-            </button>
-          </div>
         </div>
       ))}
     </div>
