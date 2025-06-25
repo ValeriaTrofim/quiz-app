@@ -31,7 +31,6 @@ const Card = () => {
         >
           <Link href={`/categories/${category.id}`}>
             <Image
-              className="rounded-t-lg"
               src={
                 category.image
                   ? category.image

@@ -42,7 +42,7 @@ const CategoryDetailPage = async ({
             key={quiz.id}
             className="max-w-sm hover:bg-slate-800 shadow-lg shadow-cyan-500/50 hover:-translate-y-1 transition-transform duration-300 ease-in-out p-10"
           >
-            <Link href="/quiz">
+            <Link href={`/quiz/${quiz.id}`}>
               <h5 className="mb-2 text-2xl text-center font-bold tracking-tight text-indigo-100  ">
                 {quiz.title}
               </h5>
