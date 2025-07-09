@@ -1,7 +1,20 @@
+import Pagination from "@/app/components/Pagination";
 import prisma from "@/prisma/client";
 
-const Quiz = async ({ params }: { params: Promise<{ id: string }> }) => {
+const Quiz = async ({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ id: string }>;
+  searchParams: Promise<{ page: string }>;
+}) => {
+  // Await for query parameters and parseInt page, because query params are always strings or use 1 as default value.
+  const page = await searchParams.then(
+    (value: { page: string }) => parseInt(value.page) || 1
+  );
+  const pageSize = 1;
   const id = (await params).id;
+
   const questions = await prisma.question.findMany({
     where: {
       quizId: id,
@@ -14,6 +27,14 @@ const Quiz = async ({ params }: { params: Promise<{ id: string }> }) => {
           isCorrect: true,
         },
       },
+    },
+    skip: (page - 1) * pageSize,
+    take: pageSize,
+  });
+
+  const questionCount = await prisma.question.count({
+    where: {
+      quizId: id,
     },
   });
 
@@ -46,6 +67,11 @@ const Quiz = async ({ params }: { params: Promise<{ id: string }> }) => {
               </label>
             </div>
           ))}
+          <Pagination
+            itemCount={questionCount}
+            pageSize={pageSize}
+            currentPage={page}
+          />
         </div>
       ))}
     </div>
