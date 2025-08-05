@@ -1,42 +1,91 @@
+"use client";
 import Pagination from "@/app/components/Pagination";
-import prisma from "@/prisma/client";
+import { OptionProps, QuestionDataProps } from "@/app/types/types";
+import axios from "axios";
+import { useTransition, useState, useEffect } from "react";
+import { useSearchParams, useParams, useRouter } from "next/navigation";
+import { getPaginatedQuestions } from "@/app/quiz/[id]/actions";
+import { useGlobalContext } from "@/app/context/GlobalContext";
 
-const Quiz = async ({
-  params,
-  searchParams,
-}: {
-  params: Promise<{ id: string }>;
-  searchParams: Promise<{ page: string }>;
-}) => {
-  // Await for query parameters and parseInt page, because query params are always strings or use 1 as default value.
-  const page = await searchParams.then(
-    (value: { page: string }) => parseInt(value.page) || 1
+const Quiz = () => {
+  const { selectedAnswers, setselectedAnswers, setQuizAnswers } =
+    useGlobalContext();
+  const searchParams = useSearchParams();
+  const params = useParams<{ id: string }>();
+  const [currentIndex] = useState(0);
+  const [activeQuestion, setActiveQuestion] = useState<OptionProps | null>(
+    null
   );
+  // Initialize our questionData with an empty array and 0 count, until we fetch the data and set the value for it in the useEffect.
+  const [questionData, setQuestionData] = useState<QuestionDataProps>({
+    questions: [],
+    questionCount: 0,
+  });
+  // Transition is used to invoke the server function inside of the useEffect.
+  const [isPending, startTransition] = useTransition();
+  const router = useRouter();
+
+  // Await for query parameters and parseInt page, because query params are always strings or use 1 as default value.
+  const page = parseInt(searchParams.get("page") || "1");
   const pageSize = 1;
-  const id = (await params).id;
+  const id = params.id;
 
-  const questions = await prisma.question.findMany({
-    where: {
-      quizId: id,
-    },
-    include: {
-      options: {
-        select: {
-          id: true,
-          text: true,
-          isCorrect: true,
-        },
-      },
-    },
-    skip: (page - 1) * pageSize,
-    take: pageSize,
-  });
+  // Fetch the page specific question once the component is mounted.
+  useEffect(() => {
+    startTransition(async () => {
+      const data = await getPaginatedQuestions(id, pageSize, page);
+      setQuestionData(data);
+    });
+  }, [id, pageSize, page]);
 
-  const questionCount = await prisma.question.count({
-    where: {
-      quizId: id,
-    },
-  });
+  // Destructure our fetched paginated questions and question count.
+  const { questions, questionCount } = questionData;
+
+  const handleActiveQuestion = (option: OptionProps) => {
+    if (!questions[currentIndex]) return;
+    const answer = {
+      questionId: questions[currentIndex].id,
+      optionId: option.id,
+      isCorrect: option.isCorrect,
+    };
+
+    setselectedAnswers((prev) => {
+      const existingIndex = prev.findIndex((res: { questionId: string }) => {
+        return res.questionId === answer.questionId;
+      });
+
+      if (existingIndex !== -1) {
+        const updatedAnswers = [...prev];
+        updatedAnswers[existingIndex] = answer;
+
+        return updatedAnswers;
+      } else {
+        return [...prev, answer];
+      }
+    });
+    setActiveQuestion(option);
+  };
+
+  const handleFinishQuiz = async () => {
+    setQuizAnswers(selectedAnswers);
+
+    const score = selectedAnswers.filter(
+      (res: { isCorrect: boolean }) => res.isCorrect
+    ).length;
+
+    try {
+      const res = await axios.post("/api/results", {
+        quizId: id,
+        score,
+        selectedAnswers,
+      });
+
+      console.log("Quiz finished:", res.data);
+    } catch (error) {
+      console.log("Error finishing quiz:", error);
+    }
+    router.push("/results");
+  };
 
   return (
     <div className="container mx-auto flex min-h-screen flex-col justify-between lg:p-24 md:p-12 p-5 m-5">
@@ -59,7 +108,6 @@ const Quiz = async ({
                 value={page}
                 max={questionCount}
               ></progress>
-              {/* <div className="bg-cyan-500 shadow-md shadow-cyan-500/50 h-2.5 rounded-full w-48"></div> */}
             </div>
           </div>
           <div className="flex flex-col items-start w-full">
@@ -79,8 +127,9 @@ const Quiz = async ({
                   className="absolute top-[50%] left-6 right-6 text-indigo-100   -translate-y-[50%]
                      peer-checked:text-indigo-100 font-bold transition-all duration-200 select-none
                 "
+                  onClick={() => handleActiveQuestion(option as OptionProps)}
                 >
-                  {option.text}
+                  {option.text === activeQuestion?.text}
                 </label>
               </div>
             ))}
@@ -88,6 +137,8 @@ const Quiz = async ({
               itemCount={questionCount}
               pageSize={pageSize}
               currentPage={page}
+              seeResults={handleFinishQuiz}
+              isPending={isPending}
             />
           </div>
         </div>

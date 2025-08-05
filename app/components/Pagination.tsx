@@ -1,14 +1,21 @@
 "use client";
-
 import { useRouter, useSearchParams } from "next/navigation";
 
 interface Props {
   itemCount: number;
   pageSize: number;
   currentPage: number;
+  seeResults: () => void;
+  isPending: boolean | undefined;
 }
 
-const Pagination = ({ itemCount, pageSize, currentPage }: Props) => {
+const Pagination = ({
+  itemCount,
+  pageSize,
+  currentPage,
+  seeResults,
+  isPending,
+}: Props) => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -20,6 +27,7 @@ const Pagination = ({ itemCount, pageSize, currentPage }: Props) => {
     params.set("page", page.toString());
     router.push("?" + params.toString());
   };
+
   return (
     <div className="flex justify-between w-full mt-4 text-cyan-500">
       <button
@@ -30,8 +38,10 @@ const Pagination = ({ itemCount, pageSize, currentPage }: Props) => {
         Previous
       </button>
       <button
-        disabled={currentPage === pageCount}
-        onClick={() => changePage(currentPage + 1)}
+        disabled={isPending}
+        onClick={() =>
+          currentPage < pageCount ? changePage(currentPage + 1) : seeResults()
+        }
         className="w-[49%] py-3 bg-cyan-950 rounded-lg"
       >
         Next
