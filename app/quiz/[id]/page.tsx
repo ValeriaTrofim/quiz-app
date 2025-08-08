@@ -119,17 +119,21 @@ const Quiz = () => {
                 <input
                   type="checkbox"
                   id={option.id}
-                  className="appearance-none border-solid border-2 border-slate-800 cursor-pointer h-full w-full 
-                    checked:border-cyan-500 shadow-md shadow-cyan-500/50 transition-all duration-200 hover:border-cyan-500"
+                  className={`${
+                    option.text === activeQuestion?.text
+                      ? "appearance-none border-solid border-2 border-slate-800 cursor-pointer h-full w-full checked:border-cyan-500 shadow-md shadow-cyan-500/50 transition-all duration-200 hover:border-cyan-500"
+                      : "appearance-none border-solid border-2 border-slate-800 cursor-pointer h-full w-full transition-all duration-200 hover:border-cyan-500"
+                  }`}
                 ></input>
                 <label
                   htmlFor={option.id}
                   className="absolute top-[50%] left-6 right-6 text-indigo-100   -translate-y-[50%]
-                     peer-checked:text-indigo-100 font-bold transition-all duration-200 select-none
+                     peer-checked:text-indigo-100 font-bold transition-all duration-200 select-none\
+                     
                 "
                   onClick={() => handleActiveQuestion(option as OptionProps)}
                 >
-                  {option.text === activeQuestion?.text}
+                  {option.text}
                 </label>
               </div>
             ))}
