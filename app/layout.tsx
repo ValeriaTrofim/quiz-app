@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import NavBar from "./NavBar";
 import { ClerkProvider } from "@clerk/nextjs";
 import QueryClientProvider from "./QueryClientProvider";
+import { GlobalContextProvider } from "./context/GlobalContext";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -18,12 +19,14 @@ export default function RootLayout({
   return (
     <QueryClientProvider>
       <ClerkProvider>
-        <html lang="en">
-          <body>
-            <NavBar />
-            <main>{children}</main>
-          </body>
-        </html>
+        <GlobalContextProvider>
+          <html lang="en">
+            <body>
+              <NavBar />
+              <main>{children}</main>
+            </body>
+          </html>
+        </GlobalContextProvider>
       </ClerkProvider>
     </QueryClientProvider>
   );

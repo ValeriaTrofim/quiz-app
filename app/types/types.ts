@@ -21,4 +21,5 @@ interface QuestionDataProps {
   questions: QuestionProps[];
   questionCount: number;
 }
+
 export type { AnswerProps, OptionProps, QuestionDataProps };

@@ -1,3 +1,5 @@
+"use client";
+
 import {
   createContext,
   useContext,
@@ -30,11 +32,18 @@ export const GlobalContextProvider = ({ children }: ContextProviderProps) => {
   const [selectedAnswers, setselectedAnswers] = useState<AnswerProps[]>([]);
   const [quizAnswers, setQuizAnswers] = useState<AnswerProps[]>([]);
 
-  <GlobalContext.Provider
-    value={{ selectedAnswers, setselectedAnswers, quizAnswers, setQuizAnswers }}
-  >
-    {children}
-  </GlobalContext.Provider>;
+  return (
+    <GlobalContext.Provider
+      value={{
+        selectedAnswers,
+        setselectedAnswers,
+        quizAnswers,
+        setQuizAnswers,
+      }}
+    >
+      {children}
+    </GlobalContext.Provider>
+  );
 };
 export const useGlobalContext = () => {
   return useContext(GlobalContext);
