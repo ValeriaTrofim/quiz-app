@@ -8,13 +8,15 @@ import {
   SetStateAction,
   ReactNode,
 } from "react";
-import { AnswerProps } from "../types/types";
+import { AnswerProps, QuestionDataProps } from "../types/types";
 
 interface ContextProps {
   selectedAnswers: AnswerProps[];
   setselectedAnswers: Dispatch<SetStateAction<AnswerProps[]>>;
   quizAnswers: AnswerProps[];
   setQuizAnswers: Dispatch<SetStateAction<AnswerProps[]>>;
+  questionData: QuestionDataProps;
+  setQuestionData: Dispatch<SetStateAction<QuestionDataProps>>;
 }
 
 type ContextProviderProps = {
@@ -26,11 +28,20 @@ const GlobalContext = createContext<ContextProps>({
   setselectedAnswers: () => {},
   quizAnswers: [],
   setQuizAnswers: () => {},
+  questionData: {
+    questions: [],
+    questionCount: 0,
+  },
+  setQuestionData: () => {},
 });
 
 export const GlobalContextProvider = ({ children }: ContextProviderProps) => {
   const [selectedAnswers, setselectedAnswers] = useState<AnswerProps[]>([]);
   const [quizAnswers, setQuizAnswers] = useState<AnswerProps[]>([]);
+  const [questionData, setQuestionData] = useState<QuestionDataProps>({
+    questions: [],
+    questionCount: 0,
+  });
 
   return (
     <GlobalContext.Provider
@@ -39,6 +50,8 @@ export const GlobalContextProvider = ({ children }: ContextProviderProps) => {
         setselectedAnswers,
         quizAnswers,
         setQuizAnswers,
+        questionData,
+        setQuestionData,
       }}
     >
       {children}

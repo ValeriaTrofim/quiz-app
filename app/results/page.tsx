@@ -5,16 +5,18 @@ import { useRouter } from "next/navigation";
 
 const page = () => {
   const router = useRouter();
-  const { quizAnswers } = useGlobalContext();
+  const { quizAnswers, questionData } = useGlobalContext();
 
   if (!quizAnswers || quizAnswers.length === 0) {
-    return router.push("/");
+    return router.push("/categories");
   }
   const correctAnswers = quizAnswers.filter(
     (res: { isCorrect: boolean }) => res.isCorrect
   ).length;
 
-  const totalQuestions = quizAnswers.length;
+  const { questionCount } = questionData;
+
+  const totalQuestions = questionCount;
   const scorePercentage = (correctAnswers / totalQuestions) * 100;
 
   let message = "";

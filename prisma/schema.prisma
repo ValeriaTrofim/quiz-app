@@ -8,13 +8,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id            String   @id @default(auto()) @map("_id") @db.ObjectId
-  clerkId       String   @unique
-  role          String   @default("user")
-  categoryStats CategoryStat[]
-}
-
 model Category{
   id            String   @id @default(auto()) @map("_id") @db.ObjectId
   name          String   
@@ -51,17 +44,3 @@ model Option{
   question        Question  @relation(fields: [questionId], references: [id], onDelete: Cascade)
 }
 
-
-model CategoryStat {
-  id            String  @id @default(auto()) @map("_id") @db.ObjectId
-  userId        String   @db.ObjectId
-  user          User     @relation(fields: [userId], references: [id])
-  categoryId    String   @db.ObjectId
-  category      Category @relation(fields: [categoryId], references: [id])
-  attempts      Int @default(0) // Total attempts in this category
-  completed     Int @default(0) // Total completed quizzes in this category
-  averageScore  Float? 
-  lastAttempt   DateTime? // Last attempt in this category
-
-  @@unique([userId, categoryId])
-}

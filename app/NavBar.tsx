@@ -4,7 +4,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FaCode } from "react-icons/fa";
 import classnames from "classnames";
-import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 
 const NavBar = () => {
   const currentPath = usePathname();
@@ -33,12 +32,6 @@ const NavBar = () => {
           </Link>
         ))}
       </ul>
-      <SignedOut>
-        <SignInButton />
-      </SignedOut>
-      <SignedIn>
-        <UserButton />
-      </SignedIn>
     </nav>
   );
 };

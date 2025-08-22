@@ -1,6 +1,6 @@
 "use client";
 import Pagination from "@/app/components/Pagination";
-import { OptionProps, QuestionDataProps } from "@/app/types/types";
+import { OptionProps } from "@/app/types/types";
 import axios from "axios";
 import { useTransition, useState, useEffect } from "react";
 import { useSearchParams, useParams, useRouter } from "next/navigation";
@@ -8,29 +8,26 @@ import { getPaginatedQuestions } from "@/app/quiz/[id]/actions";
 import { useGlobalContext } from "@/app/context/GlobalContext";
 
 const Quiz = () => {
-  const { selectedAnswers, setselectedAnswers, setQuizAnswers } =
-    useGlobalContext();
+  const {
+    selectedAnswers,
+    setselectedAnswers,
+    setQuizAnswers,
+    questionData,
+    setQuestionData,
+  } = useGlobalContext();
   const searchParams = useSearchParams();
   const params = useParams<{ id: string }>();
   const [currentIndex] = useState(0);
   const [activeQuestion, setActiveQuestion] = useState<OptionProps | null>(
     null
   );
-  // Initialize our questionData with an empty array and 0 count, until we fetch the data and set the value for it in the useEffect.
-  const [questionData, setQuestionData] = useState<QuestionDataProps>({
-    questions: [],
-    questionCount: 0,
-  });
-  // Transition is used to invoke the server function inside of the useEffect.
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
 
-  // Await for query parameters and parseInt page, because query params are always strings or use 1 as default value.
   const page = parseInt(searchParams.get("page") || "1");
   const pageSize = 1;
   const id = params.id;
 
-  // Fetch the page specific question once the component is mounted.
   useEffect(() => {
     startTransition(async () => {
       const data = await getPaginatedQuestions(id, pageSize, page);
@@ -38,7 +35,6 @@ const Quiz = () => {
     });
   }, [id, pageSize, page]);
 
-  // Destructure our fetched paginated questions and question count.
   const { questions, questionCount } = questionData;
 
   const handleActiveQuestion = (option: OptionProps) => {
@@ -115,6 +111,7 @@ const Quiz = () => {
               <div
                 key={option.id}
                 className="relative w-full lg:h-24 md:h-24 h-32 mt-5 "
+                onClick={() => handleActiveQuestion(option as OptionProps)}
               >
                 <input
                   type="checkbox"
@@ -131,7 +128,6 @@ const Quiz = () => {
                      peer-checked:text-indigo-100 font-bold transition-all duration-200 select-none\
                      
                 "
-                  onClick={() => handleActiveQuestion(option as OptionProps)}
                 >
                   {option.text}
                 </label>
