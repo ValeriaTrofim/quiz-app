@@ -1,5 +1,7 @@
 "use client";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useGlobalContext } from "../context/GlobalContext";
+import toast, { Toaster } from "react-hot-toast";
 
 interface Props {
   itemCount: number;
@@ -19,6 +21,8 @@ const Pagination = ({
   const router = useRouter();
   const searchParams = useSearchParams();
 
+  const { activeQuestion, setActiveQuestion } = useGlobalContext();
+
   const pageCount = Math.ceil(itemCount / pageSize);
   if (pageCount <= 1) return null;
 
@@ -28,24 +32,25 @@ const Pagination = ({
     router.push("?" + params.toString());
   };
 
+  const handleNextPage = () => {
+    currentPage < pageCount ? changePage(currentPage + 1) : seeResults();
+    setActiveQuestion(null);
+  };
+
   return (
     <div className="flex justify-between w-full mt-4 text-cyan-500">
       <button
-        disabled={currentPage === 1}
-        onClick={() => changePage(currentPage - 1)}
-        className="w-[49%] py-3 bg-cyan-950 rounded-lg"
-      >
-        Previous
-      </button>
-      <button
         disabled={isPending}
         onClick={() =>
-          currentPage < pageCount ? changePage(currentPage + 1) : seeResults()
+          activeQuestion?.id
+            ? handleNextPage()
+            : toast.error("Please select an option to continue")
         }
-        className="w-[49%] py-3 bg-cyan-950 rounded-lg"
+        className="w-[100%] py-3 bg-cyan-950 rounded-lg"
       >
-        Next
+        Submit Answer
       </button>
+      <Toaster />
     </div>
   );
 };

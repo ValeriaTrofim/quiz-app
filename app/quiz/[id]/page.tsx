@@ -1,11 +1,11 @@
 "use client";
 import Pagination from "@/app/components/Pagination";
 import { OptionProps } from "@/app/types/types";
-import axios from "axios";
 import { useTransition, useState, useEffect } from "react";
 import { useSearchParams, useParams, useRouter } from "next/navigation";
 import { getPaginatedQuestions } from "@/app/quiz/[id]/actions";
 import { useGlobalContext } from "@/app/context/GlobalContext";
+import axios from "axios";
 
 const Quiz = () => {
   const {
@@ -14,13 +14,13 @@ const Quiz = () => {
     setQuizAnswers,
     questionData,
     setQuestionData,
+    activeQuestion,
+    setActiveQuestion,
   } = useGlobalContext();
   const searchParams = useSearchParams();
   const params = useParams<{ id: string }>();
   const [currentIndex] = useState(0);
-  const [activeQuestion, setActiveQuestion] = useState<OptionProps | null>(
-    null
-  );
+
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
 
@@ -64,7 +64,6 @@ const Quiz = () => {
 
   const handleFinishQuiz = async () => {
     setQuizAnswers(selectedAnswers);
-
     const score = selectedAnswers.filter(
       (res: { isCorrect: boolean }) => res.isCorrect
     ).length;
@@ -111,11 +110,11 @@ const Quiz = () => {
               <div
                 key={option.id}
                 className="relative w-full lg:h-24 md:h-24 h-32 mt-5 "
-                onClick={() => handleActiveQuestion(option as OptionProps)}
               >
                 <input
                   type="checkbox"
                   id={option.id}
+                  onChange={() => handleActiveQuestion(option as OptionProps)}
                   className={`${
                     option.text === activeQuestion?.text
                       ? "appearance-none border-solid border-2 border-slate-800 cursor-pointer h-full w-full checked:border-cyan-500 shadow-md shadow-cyan-500/50 transition-all duration-200 hover:border-cyan-500"

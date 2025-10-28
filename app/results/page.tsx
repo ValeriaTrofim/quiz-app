@@ -7,9 +7,6 @@ const page = () => {
   const router = useRouter();
   const { quizAnswers, questionData } = useGlobalContext();
 
-  if (!quizAnswers || quizAnswers.length === 0) {
-    return router.push("/categories");
-  }
   const correctAnswers = quizAnswers.filter(
     (res: { isCorrect: boolean }) => res.isCorrect
   ).length;
