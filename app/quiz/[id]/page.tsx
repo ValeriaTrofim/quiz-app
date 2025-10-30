@@ -73,7 +73,7 @@ const Quiz = () => {
       {questions.map((question) => (
         <div
           key={question.id}
-          className="grid grid-cols-1 md:grid-cols-2 md:gap-[5rem] items-start w-full "
+          className="grid grid-cols-1 lg:grid-cols-2 md:gap-[5rem] items-start w-full "
         >
           <div className="flex flex-col items-start w-full">
             <h4 className="mt-10 text-xl font-bold text-cyan-500">
@@ -83,7 +83,7 @@ const Quiz = () => {
               {question.text}
             </div>
 
-            <div className="w-full md:mt-44 ">
+            <div className="w-full lg:mt-44 ">
               <progress
                 className="w-full bg-slate-700 rounded-full h-2.5 shadow-md shadow-cyan-500/50 [&::-webkit-progress-bar]:bg-cyan-500  [&::-webkit-progress-value]:bg-cyan-500 [&::-moz-progress-bar]:bg-cyan-500"
                 value={page}

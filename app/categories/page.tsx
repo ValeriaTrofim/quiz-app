@@ -3,7 +3,7 @@ import Card from "../components/Card";
 
 const Categories = () => {
   return (
-    <div className="container mx-auto  flex min-h-screen  flex-col justify-between p-24">
+    <div className="container mx-auto  flex min-h-screen  flex-col justify-between p-[6rem]">
       <Card />
     </div>
   );

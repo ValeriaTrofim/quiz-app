@@ -46,7 +46,7 @@ const Pagination = ({
             ? handleNextPage()
             : toast.error("Please select an option to continue")
         }
-        className="w-[100%] py-3 bg-cyan-950 rounded-lg"
+        className="w-[100%] py-3 bg-cyan-950 rounded-lg hover:bg-sky-950"
       >
         Submit Answer
       </button>
