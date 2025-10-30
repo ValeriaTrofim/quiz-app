@@ -30,6 +30,11 @@ const page = () => {
     message = "Outstanding! You got everything right!";
   }
 
+  const handleClick = () => {
+    router.push("/categories");
+    window.location.reload();
+  };
+
   return (
     <div className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="py-20 flex flex-col gap-4">
@@ -50,7 +55,7 @@ const page = () => {
         <div className="flex justify-center mt-8">
           <button
             className="px-10 py-6 font-bold text-white text-xl rounded-xl"
-            onClick={() => router.push("/categories")}
+            onClick={() => handleClick()}
           >
             Play Again
           </button>

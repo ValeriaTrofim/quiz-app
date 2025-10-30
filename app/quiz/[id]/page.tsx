@@ -62,23 +62,9 @@ const Quiz = () => {
     setActiveQuestion(option);
   };
 
-  const handleFinishQuiz = async () => {
+  const handleFinishQuiz = () => {
     setQuizAnswers(selectedAnswers);
-    const score = selectedAnswers.filter(
-      (res: { isCorrect: boolean }) => res.isCorrect
-    ).length;
 
-    try {
-      const res = await axios.post("/api/results", {
-        quizId: id,
-        score,
-        selectedAnswers,
-      });
-
-      console.log("Quiz finished:", res.data);
-    } catch (error) {
-      console.log("Error finishing quiz:", error);
-    }
     router.push("/results");
   };
 
