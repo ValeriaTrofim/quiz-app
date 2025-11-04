@@ -1,5 +1,6 @@
 import prisma from "@/prisma/client";
 import Link from "next/link";
+import { FaArrowAltCircleDown, FaBug } from "react-icons/fa";
 import { notFound } from "next/navigation";
 
 const CategoryDetailPage = async ({
@@ -36,12 +37,13 @@ const CategoryDetailPage = async ({
 
   return (
     <div className="container mx-auto flex min-h-screen flex-col items-center justify-between p-24 lg:p-40 ">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 ">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-20 ">
         {quizzes?.map((quiz) => (
           <div
             key={quiz.id}
-            className="max-w-sm hover:bg-slate-800 shadow-lg shadow-cyan-500/50 hover:-translate-y-1 transition-transform duration-300 ease-in-out p-10"
+            className="max-w-sm group hover:bg-slate-900 shadow-lg shadow-cyan-500/50 hover:-translate-y-1 transition-transform duration-300 ease-in-out lg:p-10 p-3"
           >
+            <FaArrowAltCircleDown className="animate-bounce text-indigo-100 ml-12 lg:ml-0 opacity-0 group-hover:opacity-100" />
             <Link href={`/quiz/${quiz.id}`}>
               <h5 className="mb-2 text-2xl text-center font-bold tracking-tight text-indigo-100  ">
                 {quiz.title}
@@ -50,6 +52,7 @@ const CategoryDetailPage = async ({
                 {quiz.description}
               </p>
             </Link>
+            <FaBug className="block lg:hidden ml-[3.2rem] animate-bounce text-indigo-100" />
           </div>
         ))}
       </div>

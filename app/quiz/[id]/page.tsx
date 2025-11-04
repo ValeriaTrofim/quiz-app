@@ -5,7 +5,6 @@ import { useTransition, useState, useEffect } from "react";
 import { useSearchParams, useParams, useRouter } from "next/navigation";
 import { getPaginatedQuestions } from "@/app/quiz/[id]/actions";
 import { useGlobalContext } from "@/app/context/GlobalContext";
-import axios from "axios";
 
 const Quiz = () => {
   const {
@@ -79,11 +78,11 @@ const Quiz = () => {
             <h4 className="mt-10 text-xl font-bold text-cyan-500">
               Question {page} of {questionCount}
             </h4>
-            <div className="lg:h-11 md:h-24 h-32 md:mt-24 lg:mt-24 mt-5 mb-5 text-2xl md:text-3xl lg:text-3xl text-indigo-200 font-bold ">
+            <div className="lg:h-11 h-[5rem] md:mt-24 lg:mt-24 mt-5 lg:mb-5 mb-1 text-2xl md:text-3xl text-indigo-200 font-bold ">
               {question.text}
             </div>
 
-            <div className="w-full lg:mt-44 ">
+            <div className="w-full lg:mt-44 mt-1">
               <progress
                 className="w-full bg-slate-700 rounded-full h-2.5 shadow-md shadow-cyan-500/50 [&::-webkit-progress-bar]:bg-cyan-500  [&::-webkit-progress-value]:bg-cyan-500 [&::-moz-progress-bar]:bg-cyan-500"
                 value={page}
@@ -114,6 +113,7 @@ const Quiz = () => {
                      
                 "
                 >
+                  <span className="relative inline-flex size-3 rounded-full bg-cyan-800 mr-2"></span>
                   {option.text}
                 </label>
               </div>

@@ -54,7 +54,7 @@ const page = () => {
 
         <div className="flex justify-center mt-8">
           <button
-            className="px-10 py-6 font-bold text-white text-xl rounded-xl"
+            className="px-10 py-6 font-bold text-white text-xl rounded-xl hover:text-cyan-500"
             onClick={() => handleClick()}
           >
             Play Again
