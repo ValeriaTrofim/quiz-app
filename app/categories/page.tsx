@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import Card from "../components/Card";
 
 const Categories = () => {
@@ -9,3 +10,8 @@ const Categories = () => {
 };
 
 export default Categories;
+
+export const metadata: Metadata = {
+  title: "Quiz App - Categories",
+  description: "View the categories for quizzes",
+};
