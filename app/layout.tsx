@@ -2,7 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import NavBar from "./NavBar";
-import { ClerkProvider } from "@clerk/nextjs";
+
 import QueryClientProvider from "./QueryClientProvider";
 import { GlobalContextProvider } from "./context/GlobalContext";
 
@@ -18,16 +18,14 @@ export default function RootLayout({
 }) {
   return (
     <QueryClientProvider>
-      <ClerkProvider>
-        <GlobalContextProvider>
-          <html lang="en">
-            <body>
-              <NavBar />
-              <main>{children}</main>
-            </body>
-          </html>
-        </GlobalContextProvider>
-      </ClerkProvider>
+      <GlobalContextProvider>
+        <html lang="en">
+          <body>
+            <NavBar />
+            <main>{children}</main>
+          </body>
+        </html>
+      </GlobalContextProvider>
     </QueryClientProvider>
   );
 }
