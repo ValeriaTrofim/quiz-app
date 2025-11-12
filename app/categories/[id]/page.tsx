@@ -2,12 +2,13 @@ import prisma from "@/prisma/client";
 import Link from "next/link";
 import { FaArrowAltCircleDown, FaBug } from "react-icons/fa";
 import { notFound } from "next/navigation";
+import { Metadata } from "next";
 
-const CategoryDetailPage = async ({
-  params,
-}: {
+interface Props {
   params: Promise<{ id: string }>;
-}) => {
+}
+
+const CategoryDetailPage = async ({ params }: Props) => {
   const id = (await params).id;
 
   const quizzes = await prisma.quiz.findMany({
@@ -52,7 +53,7 @@ const CategoryDetailPage = async ({
                 {quiz.description}
               </p>
             </Link>
-            <FaBug className="block lg:hidden ml-[3.2rem] animate-bounce text-indigo-100" />
+            <FaBug className="block lg:hidden ml-[5.2rem] animate-bounce text-indigo-100" />
           </div>
         ))}
       </div>
@@ -61,3 +62,13 @@ const CategoryDetailPage = async ({
 };
 
 export default CategoryDetailPage;
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { id } = await params;
+  const category = await prisma.category.findUnique({ where: { id: id } });
+
+  return {
+    title: "Quiz App - Difficulty" + " " + category?.name,
+    description: "View the difficlty settings for the quiz" + category?.id,
+  };
+}
