@@ -14,7 +14,6 @@ model Category{
   description   String?
   image         String?
   quizzes       Quiz[]
-  categoryStats CategoryStat[] // reseve relation to CategoryStat
 }
 
 model Quiz {
