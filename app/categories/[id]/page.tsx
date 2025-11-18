@@ -7,7 +7,6 @@ import { Quiz } from "@prisma/client";
 
 interface Props {
   params: Promise<{ id: string }>;
-  quiz: Quiz[];
 }
 
 const CategoryDetailPage = async ({ params }: Props) => {
