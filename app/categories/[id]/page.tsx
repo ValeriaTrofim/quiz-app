@@ -3,7 +3,6 @@ import Link from "next/link";
 import { FaArrowAltCircleDown, FaBug } from "react-icons/fa";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
-import { Quiz } from "@prisma/client";
 
 interface Props {
   params: Promise<{ id: string }>;
