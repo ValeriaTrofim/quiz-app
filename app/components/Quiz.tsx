@@ -74,16 +74,16 @@ const Quiz = () => {
           className="grid grid-cols-1 lg:grid-cols-2 md:gap-[5rem] items-start w-full "
         >
           <div className="flex flex-col items-start w-full">
-            <h4 className="mt-10 text-xl font-bold text-cyan-500">
+            <h4 className="mt-0 md:mt-10 text-xl font-bold text-cyan-500">
               Question {page} of {questionCount}
             </h4>
-            <div className="lg:h-11 h-[5rem] md:mt-24 lg:mt-24 mt-5 lg:mb-5 mb-1 text-2xl md:text-3xl text-indigo-200 font-bold ">
+            <div className="lg:h-11 h-[5rem] sm:h-[4.5rem] md:mt-24 lg:mt-24 mt-5 lg:mb-5 mb-1 text-xl md:text-3xl text-indigo-200 font-bold ">
               {question.text}
             </div>
 
-            <div className="w-full lg:mt-44 mt-1">
+            <div className="w-full lg:mt-[14rem]">
               <progress
-                className="w-full bg-slate-700 rounded-full h-2.5 shadow-md shadow-cyan-500/50 [&::-webkit-progress-bar]:bg-cyan-500  [&::-webkit-progress-value]:bg-cyan-500 [&::-moz-progress-bar]:bg-cyan-500"
+                className="w-full bg-slate-700 rounded-full h-2.5 shadow-md shadow-cyan-500/50 [&::-webkit-progress-bar]:bg-cyan-500  [&::-webkit-progress-value]:bg-cyan-500 [&::-moz-progress-bar]:bg-cyan-500 hidden lg:block"
                 value={page}
                 max={questionCount}
               ></progress>
@@ -91,10 +91,7 @@ const Quiz = () => {
           </div>
           <div className="flex flex-col items-start w-full">
             {question.options.map((option) => (
-              <div
-                key={option.id}
-                className="relative w-full lg:h-24 md:h-24 h-32 mt-5 "
-              >
+              <div key={option.id} className="relative w-full h-24 mt-5 ">
                 <input
                   type="checkbox"
                   id={option.id}
@@ -109,7 +106,7 @@ const Quiz = () => {
                   htmlFor={option.id}
                   className="absolute top-[50%] left-6 right-6 text-indigo-100   -translate-y-[50%]
                      peer-checked:text-indigo-100 font-bold transition-all duration-200 select-none\
-                     
+                     text-sm md:text-base
                 "
                 >
                   <span className="relative inline-flex size-3 rounded-full bg-cyan-800 mr-2"></span>

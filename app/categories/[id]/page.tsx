@@ -44,16 +44,18 @@ const CategoryDetailPage = async ({ params }: Props) => {
             key={quiz.id}
             className="max-w-sm group hover:bg-slate-900 shadow-lg shadow-cyan-500/50 hover:-translate-y-1 transition-transform duration-300 ease-in-out lg:p-10 p-3"
           >
-            <FaArrowAltCircleDown className="animate-bounce text-indigo-100 ml-12 lg:ml-0 opacity-0 group-hover:opacity-100" />
+            <FaArrowAltCircleDown className="animate-bounce text-indigo-100 ml-12 lg:ml-0 opacity-0 group-hover:opacity-100 hidden lg:block" />
             <Link href={`/quiz/${quiz.id}`}>
-              <h5 className="mb-2 text-2xl text-center font-bold tracking-tight text-indigo-100  ">
+              <h5 className="m-3 text-2xl text-center font-bold tracking-tight text-indigo-100  ">
                 {quiz.title}
               </h5>
               <p className="mb-3 font-normal text-indigo-200 hidden lg:block">
                 {quiz.description}
               </p>
             </Link>
-            <FaBug className="block lg:hidden ml-[5.2rem] animate-bounce text-indigo-100" />
+            <div className="flex justify-center">
+              <FaBug className="block lg:hidden animate-bounce text-indigo-100" />
+            </div>
           </div>
         ))}
       </div>
