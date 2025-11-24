@@ -17,6 +17,9 @@ const Card = () => {
     staleTime: 60 * 1000, //60s
     retry: 3,
   });
+  const handleCategorySelect = () => {
+    window.location.reload();
+  };
 
   if (isLoading) return <Spinner />;
 
@@ -29,7 +32,10 @@ const Card = () => {
           key={category.id}
           className="max-w-[16rem] bg-transparent group hover:bg-slate-900 shadow-lg shadow-cyan-500/50 hover:-translate-y-1 transition-transform duration-300 ease-in-out"
         >
-          <Link href={`/categories/${category.id}`}>
+          <Link
+            href={`/categories/${category.id}`}
+            onClick={handleCategorySelect}
+          >
             <Image
               src={
                 category.image
@@ -43,7 +49,10 @@ const Card = () => {
           </Link>
 
           <div className="p-3">
-            <Link href={`/categories/${category.id}`}>
+            <Link
+              href={`/categories/${category.id}`}
+              onClick={handleCategorySelect}
+            >
               <h5 className="mb-2 text-2xl text-center font-bold tracking-tight text-indigo-100 ">
                 {category.name + " " + "Quiz"}
               </h5>

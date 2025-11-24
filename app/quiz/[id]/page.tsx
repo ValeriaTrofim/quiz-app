@@ -1,6 +1,6 @@
 import Quiz from "@/app/components/Quiz";
 import prisma from "@/prisma/client";
-import { Metadata, ResolvingMetadata } from "next";
+import { Metadata } from "next";
 
 interface Props {
   params: Promise<{ id: string }>;

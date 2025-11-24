@@ -32,7 +32,6 @@ const Results = () => {
 
   const handleClick = () => {
     router.push("/categories");
-    window.location.reload();
   };
 
   return (

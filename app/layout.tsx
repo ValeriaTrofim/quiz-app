@@ -17,15 +17,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <QueryClientProvider>
-      <GlobalContextProvider>
-        <html lang="en">
-          <body>
+    <html lang="en">
+      <body>
+        <QueryClientProvider>
+          <GlobalContextProvider>
             <NavBar />
             <main>{children}</main>
-          </body>
-        </html>
-      </GlobalContextProvider>
-    </QueryClientProvider>
+          </GlobalContextProvider>
+        </QueryClientProvider>
+      </body>
+    </html>
   );
 }
