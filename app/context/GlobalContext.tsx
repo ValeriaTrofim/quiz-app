@@ -19,6 +19,7 @@ interface ContextProps {
   setQuestionData: Dispatch<SetStateAction<QuestionDataProps>>;
   activeQuestion: OptionProps | null;
   setActiveQuestion: Dispatch<SetStateAction<OptionProps | null>>;
+  resetQuiz: () => void;
 }
 
 type ContextProviderProps = {
@@ -37,6 +38,7 @@ const GlobalContext = createContext<ContextProps>({
   setQuestionData: () => {},
   activeQuestion: null,
   setActiveQuestion: () => {},
+  resetQuiz: () => {},
 });
 
 export const GlobalContextProvider = ({ children }: ContextProviderProps) => {
@@ -50,6 +52,16 @@ export const GlobalContextProvider = ({ children }: ContextProviderProps) => {
     null
   );
 
+  const resetQuiz = () => {
+    setselectedAnswers([]);
+    setQuizAnswers([]);
+    setQuestionData({
+      questions: [],
+      questionCount: 0,
+    });
+    setActiveQuestion(null);
+  };
+
   return (
     <GlobalContext.Provider
       value={{
@@ -61,6 +73,7 @@ export const GlobalContextProvider = ({ children }: ContextProviderProps) => {
         setQuestionData,
         activeQuestion,
         setActiveQuestion,
+        resetQuiz,
       }}
     >
       {children}
