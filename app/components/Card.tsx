@@ -4,8 +4,8 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
-import Spinner from "./Spinner";
 import { useGlobalContext } from "../context/GlobalContext";
+import CardSkeleton from "./CardSkeleton";
 
 const Card = () => {
   const {
@@ -20,13 +20,14 @@ const Card = () => {
   });
 
   const { resetQuiz } = useGlobalContext();
-
-  if (isLoading) return <Spinner />;
+  const skeletons = [1, 2, 3, 4, 5, 6];
 
   if (error) return null;
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[7.5rem] lg:gap-[10rem]">
+      {isLoading &&
+        skeletons.map((skeleton) => <CardSkeleton key={skeleton} />)}
       {categories?.map((category) => (
         <div
           key={category.id}
@@ -46,7 +47,7 @@ const Card = () => {
           </Link>
 
           <div className="p-3">
-            <Link href={`/categories/${category.id}`}>
+            <Link href={`/categories/${category.id} `} onClick={resetQuiz}>
               <h5 className="mb-2 text-2xl text-center font-bold tracking-tight text-indigo-100 ">
                 {category.name + " " + "Quiz"}
               </h5>
